@@ -1,11 +1,12 @@
-import HomePage from '@/pages/Home/HomePage';
+import { Toaster } from 'react-hot-toast';
 
-import './App.css';
+import AppRouter from './router/router';
 
 function App() {
   return (
     <>
-      <HomePage />
+      <Toaster />
+      <AppRouter />
     </>
   );
 }

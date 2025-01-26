@@ -1,12 +1,22 @@
-("use client");
-
+import { useMutation } from '@tanstack/react-query';
 import React, { useState } from 'react';
+import Confetti from 'react-confetti';
 import { useForm } from 'react-hook-form';
 
+import { handleError, handleSuccess } from '@/lib/utils';
+import { urlService } from '@/services/urlService';
+import { useUrlStore } from '@/store/useUrlStore';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 
+import { ShortUrlCard } from '@/components/custom/ShortUrlCard';
 import { Button } from '@/components/ui/button';
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle
+} from '@/components/ui/card';
 import {
   Form,
   FormControl,
@@ -17,7 +27,7 @@ import {
   FormMessage
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { IUrlProps } from './types';
+import { IShortenUrlProps, IUrlProps } from './types';
 
 const formSchema = z.object({
   originalUrl: z.string().url("Invalid URL"),
@@ -25,11 +35,9 @@ const formSchema = z.object({
 });
 
 const HomePage: React.FC = () => {
-  const [longUrl, setOriginalUrl] = useState<IUrlProps>({
-    originalUrl: "",
-    description: "",
-  });
-  const [shortUrl, setShortUrl] = useState<IUrlProps>();
+  const [shortUrl, setShortUrl] = useState<IShortenUrlProps>();
+  const showShortUrlCard = useUrlStore((state) => state.showShortUrlCard);
+  const setShowShortUrlCard = useUrlStore((state) => state.setShowShortUrlCard);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -39,74 +47,89 @@ const HomePage: React.FC = () => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // ✅ This will be type-safe and validated.
-    console.log(values);
-    setOriginalUrl(values);
-    // Send to API server component
-    setShortUrl({
-      originalUrl: "https://shorturl.com/123",
-      description: "Pedro Martinez sales website",
-    });
-    // Add Toast to it
+  const mutation = useMutation<IShortenUrlProps, Error, IUrlProps>({
+    mutationFn: (data: IUrlProps) => urlService.shortenUrl(data),
+
+    onSuccess: (data: IShortenUrlProps) => {
+      console.log("shorterUrl: ", data);
+      setShortUrl(data);
+      setShowShortUrlCard(true);
+      handleSuccess("URL shortened successfully!");
+      form.reset();
+    },
+
+    onError: (error: Error) => {
+      handleError(error);
+    },
+  });
+
+  async function onSubmit(originalUrl: z.infer<typeof formSchema>) {
+    mutation.mutate(originalUrl);
   }
 
-  const ShortUrlDisplay = () => {
-    return (
-      <div className="space-y-2">
-        <a href="">Short URL: {shortUrl?.originalUrl}</a>
-        <p>Description: {shortUrl?.description}</p>
-      </div>
-    );
-  };
-
   return (
-    <div className="max-w-md mx-auto space-y-6">
-      <h1 className="text-2xl font-bold">URL Shortener Maker</h1>
-      {shortUrl && <ShortUrlDisplay />}
-      <div className="space-y-2">
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            <FormField
-              control={form.control}
-              name="originalUrl"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>URL</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="E.g: https://longurlintheworl.com"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="description"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Short description</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="Pedro Martinez sales website"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormDescription>
-                    Optionally type a short description about your url.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <Button type="submit">Generate</Button>
-          </form>
-        </Form>
-      </div>
-    </div>
+    <section className="flex items-center justify-center pt-20">
+      {showShortUrlCard ? (
+        <div>
+          <Confetti />
+          {shortUrl && <ShortUrlCard {...shortUrl} />}
+        </div>
+      ) : (
+        <Card className="w-full md:max-w-md lg:max-w-lg bg-slate-200">
+          <CardHeader>
+            <CardTitle>URL Shortener Maker</CardTitle>
+            <CardDescription>Generate a shorter url</CardDescription>
+          </CardHeader>
+          <div className="p-6">
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="space-y-6"
+              >
+                <FormField
+                  control={form.control}
+                  name="originalUrl"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>URL</FormLabel>
+                      <FormControl>
+                        <Input
+                          className="bg-slate-10"
+                          placeholder="https://cryptoexchangetoken.com"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="description"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Short description</FormLabel>
+                      <FormControl>
+                        <Input
+                          className="bg-slate-10"
+                          placeholder="Crypto exchange website"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormDescription className="text-left">
+                        *Provide optional description
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <Button type="submit">Generate</Button>
+              </form>
+            </Form>
+          </div>
+        </Card>
+      )}
+    </section>
   );
 };
 
