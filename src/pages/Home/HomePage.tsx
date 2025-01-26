@@ -4,12 +4,12 @@ import Confetti from 'react-confetti';
 import { useForm } from 'react-hook-form';
 
 import { handleError, handleSuccess } from '@/lib/utils';
+import { ShortUrlCard } from '@/pages/Home/ShortUrlCard';
 import { urlService } from '@/services/urlService';
 import { useUrlStore } from '@/store/useUrlStore';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 
-import { ShortUrlCard } from '@/components/custom/ShortUrlCard';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -51,7 +51,6 @@ const HomePage: React.FC = () => {
     mutationFn: (data: IUrlProps) => urlService.shortenUrl(data),
 
     onSuccess: (data: IShortenUrlProps) => {
-      console.log("shorterUrl: ", data);
       setShortUrl(data);
       setShowShortUrlCard(true);
       handleSuccess("URL shortened successfully!");

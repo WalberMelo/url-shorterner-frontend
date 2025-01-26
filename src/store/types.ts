@@ -6,7 +6,23 @@ export interface UrlState {
   setShowShortUrlCard: (value: boolean) => void;
 }
 
-// export interface UrlState {
-//   history: { shortUrl: string; originalUrl: string }[];
-//   setHistory: (history: { shortUrl: string; longUrl: string }[]) => void;
-// }
+export interface HistoryState {
+  history: {
+    id: number;
+    createdAt: Date;
+    updatedAt: Date;
+    originalUrl: string;
+    shortUrl: string;
+    description?: string;
+  }[];
+  setHistory: (
+    history: {
+      id: number;
+      createdAt: Date;
+      updatedAt: Date;
+      originalUrl: string;
+      shortUrl: string;
+      description?: string;
+    }[]
+  ) => void;
+}
