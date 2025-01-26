@@ -1,6 +1,8 @@
 export interface IHistoryProps {
   id: number;
   shortUrl: string;
-  longUrl: string;
+  originalUrl: string;
   createdAt: string;
+  updatedAt: string;
+  description: string;
 }

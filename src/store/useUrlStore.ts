@@ -7,6 +7,7 @@ export const useUrlStore = create<UrlState>((set) => ({
   shortUrl: "",
   description: "",
   showShortUrlCard: false,
+
   setShortUrl: (shortUrl) => set(() => ({ shortUrl })),
   setShowShortUrlCard: (value) => {
     set(() => ({ showShortUrlCard: value }));
