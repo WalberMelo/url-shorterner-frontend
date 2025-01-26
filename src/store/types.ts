@@ -1,3 +1,5 @@
+import { IHistoryProps } from '@/pages/History/types';
+
 export interface UrlState {
   originalUrl: string;
   shortUrl: string;
@@ -6,7 +8,7 @@ export interface UrlState {
   setShowShortUrlCard: (value: boolean) => void;
 }
 
-export interface HistoryState {
+export interface HistoryState extends IHistoryProps {
   history: {
     id: number;
     createdAt: Date;

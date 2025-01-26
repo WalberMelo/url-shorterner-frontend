@@ -16,4 +16,9 @@ export const urlService = {
     const response = await api.get(ENDPOINTS.GET_HISTORY);
     return response.data;
   },
+
+  deleteHistory: async (id: number) => {
+    const response = await api.delete(`${ENDPOINTS.DELETE_HISTORY}${id}`);
+    return response.data;
+  },
 };

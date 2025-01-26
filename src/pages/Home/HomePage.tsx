@@ -94,7 +94,7 @@ const HomePage: React.FC = () => {
                       <FormControl>
                         <Input
                           className="bg-slate-10"
-                          placeholder="https://cryptoexchangetoken.com"
+                          placeholder="E.g: https://cryptoexchange/bitcoin-price.com"
                           {...field}
                         />
                       </FormControl>
@@ -107,11 +107,11 @@ const HomePage: React.FC = () => {
                   name="description"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Short description</FormLabel>
+                      <FormLabel>Web Page Title</FormLabel>
                       <FormControl>
                         <Input
                           className="bg-slate-10"
-                          placeholder="Crypto exchange website"
+                          placeholder="Bitcoin price prediction exchange"
                           {...field}
                         />
                       </FormControl>

@@ -1,7 +1,7 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import React from 'react';
 
-import { formatDate, handleError } from '@/lib/utils';
+import { formatDate, handleError, handleSuccess } from '@/lib/utils';
 import { urlService } from '@/services/urlService';
 
 import {
@@ -16,31 +16,54 @@ import {
 import { IHistoryProps } from './types';
 
 const HistoryPage: React.FC = () => {
+  const queryClient = useQueryClient();
+  //Fetching url history
   const {
     data: historyUrls,
     isLoading,
     isError,
     error,
-  } = useQuery<IHistoryProps[], Error, IHistoryProps[]>({
+  } = useQuery<IHistoryProps[], Error>({
     queryKey: ["historyUrls"],
     queryFn: urlService.getHistory,
-    onError: (err: Error) => handleError(err.message),
   });
 
+  // Delete url process
+  const deleteUrl = useMutation<void, Error, number>({
+    mutationFn: urlService.deleteHistory,
+    onSuccess: (_, id) => {
+      handleSuccess(`URL with ID ${id} deleted successfully!`);
+      queryClient.setQueryData<IHistoryProps[]>(["historyUrls"], (oldData) => {
+        return oldData?.filter((url) => url.id !== id) || [];
+      });
+    },
+    onError: (err: Error) => {
+      handleError(err.message);
+    },
+  });
+
+  const handleDelete = (id: number) => {
+    deleteUrl.mutate(id);
+  };
+
   if (isLoading) {
-    return <p>Loading history...</p>;
+    return <h2>Loading history...</h2>;
   }
 
   if (isError && error) {
-    return <p>Error: {error.message}</p>;
+    handleError(error.message);
+    return <h2>Error: {error.message}</h2>;
   }
 
-  if (!historyUrls || historyUrls.length === 0) {
-    return <p>No history available.</p>;
+  if (
+    !historyUrls ||
+    (Array.isArray(historyUrls) && historyUrls.length === 0)
+  ) {
+    return <h2>No history available.</h2>;
   }
 
-  const latestUrls = historyUrls.sort(
-    (a, b) => new Date(a.createdAt).getTime() - new Date(b.updatedAt).getTime()
+  const latestUrls = (historyUrls as IHistoryProps[]).sort(
+    (a, b) => new Date(b.createdAt).getTime() - new Date(a.updatedAt).getTime()
   );
 
   return (
@@ -71,6 +94,14 @@ const HistoryPage: React.FC = () => {
                 >
                   {url.shortUrl}{" "}
                 </a>
+              </TableCell>
+              <TableCell>
+                <button
+                  className="text-red-500 hover:underline"
+                  onClick={() => handleDelete(url.id)}
+                >
+                  DEL
+                </button>
               </TableCell>
             </TableRow>
           ))}
