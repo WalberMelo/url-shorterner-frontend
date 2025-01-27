@@ -9,7 +9,7 @@ You can access the live application here:
 
 ---
 
-![Demo](https://res.cloudinary.com/devwm/video/upload/e_accelerate:69/v1738000131/Repositories/krkq2yyyys7uhu3qjyf0.gif)
+![Demo](https://res.cloudinary.com/devwm/video/upload/c_scale,e_accelerate:67,w_265/v1738000131/Repositories/krkq2yyyys7uhu3qjyf0.gif)
 
 ---
 
