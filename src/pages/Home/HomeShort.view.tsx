@@ -1,15 +1,15 @@
-import { handleCopy } from '@/lib/utils';
-import { IShortenUrlProps } from '@/pages/Home/types';
-import { useUrlStore } from '@/store/useUrlStore';
+import { handleCopy } from "@/lib/utils";
+import { IShortenUrlProps } from "@/pages/Home/types";
+import { useUrlStore } from "@/store/useUrlStore";
 
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
-  CardTitle
-} from '@/components/ui/card';
+  CardTitle,
+} from "@/components/ui/card";
 
 export const ShortUrlCard = (props: IShortenUrlProps) => {
   const { originalUrl, shortUrl, description } = props;
@@ -21,7 +21,7 @@ export const ShortUrlCard = (props: IShortenUrlProps) => {
   return (
     <Card className="flex flex-col p-10 w-full md:max-w-md lg:max-w-lg">
       <CardHeader className="text-center">
-        <CardTitle>Shorter URL</CardTitle>
+        <CardTitle data-testid="short-url-title">Shorter URL</CardTitle>
         <CardDescription className="text-center">
           <a href={originalUrl} target="_blank" rel="noopener noreferrer">
             {shortUrl}
