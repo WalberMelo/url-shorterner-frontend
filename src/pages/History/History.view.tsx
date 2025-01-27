@@ -4,6 +4,7 @@ import React from 'react';
 import { formatDate, handleError, handleSuccess } from '@/lib/utils';
 import { urlService } from '@/services/urlService';
 
+import { CardTitle } from '@/components/ui/card';
 import {
   Table,
   TableBody,
@@ -68,6 +69,7 @@ const HistoryPage: React.FC = () => {
 
   return (
     <>
+      <CardTitle className="text-center mb-4">URL History</CardTitle>
       <Table>
         <TableCaption>A list of your recent urls created.</TableCaption>
         <TableHeader>
@@ -96,11 +98,10 @@ const HistoryPage: React.FC = () => {
                 </a>
               </TableCell>
               <TableCell>
-                <button
-                  className="text-red-500 hover:underline"
-                  onClick={() => handleDelete(url.id)}
-                >
-                  DEL
+                <button onClick={() => handleDelete(url.id)}>
+                  <span className="material-symbols-outlined hover:text-red-700">
+                    delete
+                  </span>
                 </button>
               </TableCell>
             </TableRow>

@@ -1,22 +1,21 @@
-import { useMutation } from '@tanstack/react-query';
-import React, { useState } from 'react';
-import Confetti from 'react-confetti';
-import { useForm } from 'react-hook-form';
+import { useMutation } from "@tanstack/react-query";
+import React, { useState } from "react";
+import Confetti from "react-confetti";
+import { useForm } from "react-hook-form";
 
-import { handleError, handleSuccess } from '@/lib/utils';
-import { ShortUrlCard } from '@/pages/Home/ShortUrlCard';
-import { urlService } from '@/services/urlService';
-import { useUrlStore } from '@/store/useUrlStore';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
+import { handleError, handleSuccess } from "@/lib/utils";
+import { urlService } from "@/services/urlService";
+import { useUrlStore } from "@/store/useUrlStore";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardDescription,
   CardHeader,
-  CardTitle
-} from '@/components/ui/card';
+  CardTitle,
+} from "@/components/ui/card";
 import {
   Form,
   FormControl,
@@ -24,10 +23,11 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { IShortenUrlProps, IUrlProps } from './types';
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { ShortUrlCard } from "@/pages/Home/HomeShort.view";
+import { IShortenUrlProps, IUrlProps } from "./types";
 
 const formSchema = z.object({
   originalUrl: z.string().url("Invalid URL"),
@@ -77,7 +77,7 @@ const HomePage: React.FC = () => {
         <Card className="w-full md:max-w-md lg:max-w-lg bg-slate-200">
           <CardHeader>
             <CardTitle>URL Shortener Maker</CardTitle>
-            <CardDescription>Generate a shorter url</CardDescription>
+            <CardDescription>Generate a shorter url slug</CardDescription>
           </CardHeader>
           <div className="p-6">
             <Form {...form}>
