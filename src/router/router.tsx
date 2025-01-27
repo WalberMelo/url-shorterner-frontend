@@ -1,8 +1,9 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
-import HistoryPage from '@/pages/History/HistoryPage';
-import HomePage from '@/pages/Home/HomePage';
-import { Layout } from '@/pages/Layout';
+import { Layout } from "@/pages/Layout";
+
+import HistoryPage from "@/pages/History/History.view";
+import HomePage from "@/pages/Home/HomePage.view";
 
 function AppRouter() {
   return (
