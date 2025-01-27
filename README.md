@@ -5,11 +5,11 @@ This is the frontend application for the **URL Shortener** project, designed to 
 ## **Live Application**
 
 You can access the live application here:  
-[**URL Shortener - Live Demo**](https://github.com/WalberMelo/url-shorterner-frontend)
+[**URL Shortener - Live Demo**](https://url-shorterner-frontend.vercel.app/)
 
 ---
 
-![Demo](https://res.cloudinary.com/devwm/video/upload/c_scale,e_accelerate:67,w_265/v1738000131/Repositories/krkq2yyyys7uhu3qjyf0.gif)
+![Demo](https://res.cloudinary.com/devwm/video/upload/c_scale,e_accelerate:67,w_422/v1738000131/Repositories/krkq2yyyys7uhu3qjyf0.gif)
 
 ---
 
