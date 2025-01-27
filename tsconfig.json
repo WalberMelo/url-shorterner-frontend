@@ -9,13 +9,13 @@
     "types": ["@testing-library/jest-dom"],
     "paths": {
       "@/*": ["./src/*"]
-    },
-    "exclude": [
-      "src/**/*.test.ts",
-      "src/**/*.test.tsx",
-      "src/**/*.spec.ts",
-      "src/**/*.spec.tsx",
-      "test/**/*"
-    ]
-  }
+    }
+  },
+  "exclude": [
+    "src/**/*.test.ts",
+    "src/**/*.test.tsx",
+    "src/**/*.spec.ts",
+    "src/**/*.spec.tsx",
+    "test/**/*"
+  ]
 }
