@@ -1,50 +1,67 @@
-# React + TypeScript + Vite
+# **URL Shortener Frontend**
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the frontend application for the **URL Shortener** project, designed to allow users to create and view shortened URLs history.
 
-Currently, two official plugins are available:
+## **Live Application**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+You can access the live application here:  
+[**URL Shortener - Live Demo**](https://github.com/WalberMelo/url-shorterner-frontend)
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+![Demo](https://res.cloudinary.com/devwm/video/upload/e_accelerate:69/v1738000131/Repositories/krkq2yyyys7uhu3qjyf0.gif)
 
-- Configure the top-level `parserOptions` property like this:
+---
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## **Features**
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+- **URL Shortening**: Users can input long URLs to generate shortened slug ones.
+- **History Management**: View a list of recently shortened URLs with details like creation date and descriptions.
+- **Delete Functionality**: Remove unwanted URLs from the history.
+- **Responsive Design**: Optimized for various screen sizes using Tailwind CSS.
+- **Notifications**: Interactive feedback for success and error states.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+---
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+## **Tech Stack**
+
+### **Core Technologies**
+
+- **React**: For building the user interface.
+- **Vite**: As the build tool for fast development.
+- **Tailwind CSS**: For styling the application.
+- **Shadcn**: Collection of re-usable components.
+- **React Query**: For data fetching, caching, and mutations.
+- **Zustand**: For lightweight state management.
+
+### **Form Handling & Validation**
+
+- **React Hook Form**: For efficient form handling.
+- **Zod**: For schema-based form validation.
+
+### **Testing**
+
+- **Playwright**: For end-to-end testing.
+- **Vitest**: For unit testing.
+
+### **Other Libraries**
+
+- **Axios**: For HTTP requests.
+- **React Router DOM**: For routing.
+
+---
+
+## **Setup Instructions**
+
+Create a .env file in the root directory with the following variables:
+VITE_API_URL=https://your-backend-url.com
+
+### **1. Clone the Repository**
+
+```bash
+git clone https://github.com/WalberMelo/url-shortener-frontend.git
+
+cd url-shortener-frontend
+npm install
+npm run dev
 ```
