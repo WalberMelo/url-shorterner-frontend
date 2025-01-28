@@ -78,6 +78,7 @@ const HistoryPage: React.FC = () => {
             <TableHead>Created</TableHead>
             <TableHead className="text-middle">Original Url</TableHead>
             <TableHead className="text-middle">Short Url</TableHead>
+            <TableHead className="text-middle">Web title</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -87,7 +88,6 @@ const HistoryPage: React.FC = () => {
               <TableCell className="w-1/3">
                 {formatDate(url.createdAt)}
               </TableCell>
-              <TableCell className="text-middle">{url.originalUrl}</TableCell>
               <TableCell className="text-middle">
                 <a
                   href={url.originalUrl}
@@ -97,6 +97,8 @@ const HistoryPage: React.FC = () => {
                   {url.shortUrl}{" "}
                 </a>
               </TableCell>
+              <TableCell className="text-middle">{url.originalUrl}</TableCell>
+              <TableCell>{url.description}</TableCell>
               <TableCell>
                 <button onClick={() => handleDelete(url.id)}>
                   <span className="material-symbols-outlined hover:text-red-700">
