@@ -1,0 +1,15 @@
+{
+  "redirects": [
+    {
+      "source": "/:shortUrl",
+      "destination": "https://url-shorterner-backend-production.up.railway.app/url/:shortUrl",
+      "permanent": true
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
