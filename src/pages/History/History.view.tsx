@@ -1,8 +1,9 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import React from "react";
+import React, { useEffect } from "react";
 
 import { formatDate, handleError, handleSuccess } from "@/lib/utils";
 import { urlService } from "@/services/urlService";
+import { useUrlStore } from "@/store/useUrlStore";
 
 import { CardTitle } from "@/components/ui/card";
 import {
@@ -18,6 +19,12 @@ import { IHistoryProps } from "./types";
 
 const HistoryPage: React.FC = () => {
   const queryClient = useQueryClient();
+  const setShowShortUrlCard = useUrlStore((state) => state.setShowShortUrlCard);
+
+  useEffect(() => {
+    setShowShortUrlCard(false);
+  }, [setShowShortUrlCard]);
+
   //Fetching url history
   const {
     data: historyUrls,
@@ -74,23 +81,23 @@ const HistoryPage: React.FC = () => {
         <TableCaption>A list of your recent urls created.</TableCaption>
         <TableHeader>
           <TableRow>
-            <TableHead className="w-[100px]">Id</TableHead>
-            <TableHead>Created</TableHead>
-            <TableHead className="text-middle">Original Url</TableHead>
-            <TableHead className="text-middle">Short Url</TableHead>
+            <TableHead className="w-[100px]">Created</TableHead>
             <TableHead className="text-middle">Web title</TableHead>
+            <TableHead className="text-middle w-1">Original Url</TableHead>
+            <TableHead className="text-middle">Short Url</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {latestUrls.slice(0, 13).map((url: IHistoryProps) => (
             <TableRow key={url.id}>
-              <TableCell className="w-[80px] font-small">{url.id}</TableCell>
-              <TableCell className="w-1/3">
+              <TableCell className="w-[100px]">
                 {formatDate(url.createdAt)}
               </TableCell>
-              <TableCell className="text-middle">{url.originalUrl}</TableCell>
+              <TableCell>{url.description}</TableCell>
 
-              <TableCell className="text-middle">
+              <TableCell className="text-left">{url.originalUrl}</TableCell>
+
+              <TableCell className="text-left w-1/3">
                 <a
                   href={url.shortUrl} // Directly use the stored full URL
                   target="_blank"
@@ -99,8 +106,6 @@ const HistoryPage: React.FC = () => {
                   {url.shortUrl}
                 </a>
               </TableCell>
-
-              <TableCell>{url.description}</TableCell>
 
               <TableCell>
                 <button onClick={() => handleDelete(url.id)}>
