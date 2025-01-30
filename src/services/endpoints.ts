@@ -1,5 +1,6 @@
 export const ENDPOINTS = {
-  SHORTEN_URL: "url/create",
+  SHORTEN_URL: "/url/create",
+  REDIRECT_URL: "/url/",
   GET_HISTORY: "/url/history",
-  DELETE_HISTORY: "url/",
+  DELETE_HISTORY: "/url/",
 };

@@ -1,10 +1,10 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import React from 'react';
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import React from "react";
 
-import { formatDate, handleError, handleSuccess } from '@/lib/utils';
-import { urlService } from '@/services/urlService';
+import { formatDate, handleError, handleSuccess } from "@/lib/utils";
+import { urlService } from "@/services/urlService";
 
-import { CardTitle } from '@/components/ui/card';
+import { CardTitle } from "@/components/ui/card";
 import {
   Table,
   TableBody,
@@ -12,9 +12,9 @@ import {
   TableCell,
   TableHead,
   TableHeader,
-  TableRow
-} from '@/components/ui/table';
-import { IHistoryProps } from './types';
+  TableRow,
+} from "@/components/ui/table";
+import { IHistoryProps } from "./types";
 
 const HistoryPage: React.FC = () => {
   const queryClient = useQueryClient();
@@ -92,11 +92,11 @@ const HistoryPage: React.FC = () => {
 
               <TableCell className="text-middle">
                 <a
-                  href={url.originalUrl}
+                  href={url.shortUrl} // Directly use the stored full URL
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  {url.shortUrl}{" "}
+                  {url.shortUrl}
                 </a>
               </TableCell>
 

@@ -1,7 +1,7 @@
-import { IHistoryProps } from '@/pages/History/types';
-import { IShortenUrlProps, IUrlProps } from '@/pages/Home/types';
-import api from '@/services/api';
-import { ENDPOINTS } from '@/services/endpoints';
+import { IHistoryProps } from "@/pages/History/types";
+import { IShortenUrlProps, IUrlProps } from "@/pages/Home/types";
+import api from "@/services/api";
+import { ENDPOINTS } from "@/services/endpoints";
 
 export const urlService = {
   shortenUrl: async (data: IUrlProps): Promise<IShortenUrlProps> => {

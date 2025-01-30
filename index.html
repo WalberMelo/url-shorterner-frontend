@@ -10,6 +10,13 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite + React + TS</title>
+    <script>
+      const path = window.location.pathname;
+      const allowedPaths = ["/", "/history"];
+      if (!allowedPaths.includes(path)) {
+        window.location.replace(`http://localhost:3333/url${path}`);
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
