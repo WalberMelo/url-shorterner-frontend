@@ -14,7 +14,9 @@
       const path = window.location.pathname;
       const allowedPaths = ["/", "/history"];
       if (!allowedPaths.includes(path)) {
-        window.location.replace(`http://localhost:3333/url${path}`);
+        window.location.replace(
+          `http://url-shorterner-backend-production.up.railway.app/url${path}`
+        );
       }
     </script>
   </head>
